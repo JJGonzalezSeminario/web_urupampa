@@ -99,6 +99,28 @@
   
   .nav-links a:hover { color: var(--gold-light); }
 
+  /* LANGUAGE SWITCHER */
+  .lang-switch {
+    display: flex;
+    gap: 1rem;
+    margin-left: 2rem;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(255,255,255,0.15);
+  }
+  
+  .lang-switch a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--grey);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  .lang-switch a:hover, .lang-switch a.active {
+    color: var(--gold);
+  }
+
   /* HERO */
   #hero {
     position: relative;
@@ -423,18 +445,6 @@
   
   .gallery-item:hover .gallery-label { opacity: 1; transform: translateY(0); }
   
-  /* Instrument icons as placeholders */
-  .instr-icon {
-    font-size: 3rem;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.15;
-  }
-  
-  /* Color variations */
-  .gi-5 { background: linear-gradient(135deg, #1a1a0a, #2a2a0a) !important; }
-
   /* SHOWS */
   #shows {
     padding: 8rem 0;
@@ -459,19 +469,6 @@
     cursor: pointer;
     position: relative;
   }
-  
-  .show-item::before {
-    content: '';
-    position: absolute;
-    left: -1.5rem; right: -1.5rem;
-    top: 0; bottom: 0;
-    background: rgba(123,63,228,0.05);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  .show-item:hover::before { opacity: 1; }
-  .show-item:hover .show-date-num { color: var(--gold-light); }
   
   .show-date {
     text-align: center;
@@ -501,12 +498,6 @@
     margin-bottom: 0.25rem;
   }
   
-  .show-info p {
-    font-size: 0.8rem;
-    color: var(--grey);
-    letter-spacing: 0.05em;
-  }
-  
   .show-ticket {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
@@ -518,16 +509,6 @@
     white-space: nowrap;
   }
   
-  .show-ticket:hover, .show-item:hover .show-ticket {
-    background: var(--gold);
-    color: var(--black);
-  }
-  
-  .shows-aside {
-    position: sticky;
-    top: 6rem;
-  }
-  
   .next-show-card {
     background: linear-gradient(135deg, rgba(123,63,228,0.15) 0%, rgba(212,135,42,0.08) 100%);
     border: 1px solid rgba(123,63,228,0.3);
@@ -535,50 +516,6 @@
     position: relative;
     overflow: hidden;
   }
-  
-  .next-show-card::before {
-    content: 'PRÓXIMO';
-    position: absolute;
-    top: 1.5rem;
-    right: -2rem;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: var(--purple-light);
-    transform: rotate(90deg);
-    transform-origin: right center;
-  }
-  
-  .next-show-date {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    line-height: 0.85;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-  
-  .next-show-date span {
-    font-size: 1.5rem;
-    color: var(--gold);
-    display: block;
-  }
-  
-  .next-show-venue {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-  
-  .next-show-details {
-    font-size: 0.85rem;
-    color: var(--grey);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-  
-  .next-show-details strong { color: var(--gold-light); font-weight: 400; }
   
   .btn-primary {
     display: inline-flex;
@@ -645,32 +582,11 @@
     font-size: 1.5rem;
   }
   
-  /* NUEVO COLOR PARA FACEBOOK EN LUGAR DE SPOTIFY */
   .media-icon.facebook { background: rgba(24,119,242,0.12); color: #1877F2; }
   .media-icon.youtube { background: rgba(255,0,0,0.12); color: #FF0000; }
   .media-icon.instagram { background: rgba(225,48,108,0.12); color: #E1306C; }
-  
-  .media-card h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    color: var(--white);
-  }
-  
-  .media-card p {
-    font-size: 0.82rem;
-    color: var(--grey);
-    font-weight: 300;
-    line-height: 1.5;
-  }
-  
-  .media-link {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
 
-  /* BOOKING SECTION */
+  /* BOOKING */
   #booking {
     padding: 7rem 0;
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -684,20 +600,6 @@
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 3rem;
-  }
-  
-  .booking-card h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-  
-  .booking-card p {
-    font-size: 1rem;
-    color: var(--grey);
-    font-weight: 300;
-    line-height: 1.7;
   }
   
   .booking-btns {
@@ -730,7 +632,7 @@
     border-color: var(--cream);
     color: var(--cream);
   }
-  
+
   /* FOOTER */
   footer {
     position: relative;
@@ -746,42 +648,6 @@
     margin-bottom: 4rem;
   }
   
-  .footer-brand h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-style: italic;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-  
-  .footer-brand p {
-    font-size: 0.85rem;
-    color: var(--grey);
-    font-weight: 300;
-    line-height: 1.7;
-    margin-top: 1rem;
-  }
-  
-  .footer-col h5 {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--purple-light);
-    margin-bottom: 1.5rem;
-  }
-  
-  .footer-col a, .footer-col p {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--grey);
-    font-weight: 300;
-    margin-bottom: 0.7rem;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .footer-col a:hover { color: var(--gold-light); }
-  
   .footer-bottom {
     display: flex;
     align-items: center;
@@ -791,30 +657,6 @@
     font-size: 0.75rem;
     color: rgba(138,138,154,0.5);
     letter-spacing: 0.1em;
-  }
-  
-  .footer-bottom span { color: var(--gold); opacity: 0.6; }
-
-  /* DIVIDER */
-  .alt-divider {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-    opacity: 0.3;
-  }
-  
-  .alt-divider::before, .alt-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--gold);
-  }
-  
-  .alt-divider .diamond {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    transform: rotate(45deg);
   }
 
   /* ANIMATIONS */
@@ -840,31 +682,16 @@
     transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
   }
   
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.25s; }
-  .reveal-delay-3 { transition-delay: 0.4s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
-    
-    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.3em; margin-bottom: 1.5rem; }
-    .hero-subtitle { font-size: 1.15rem; margin-bottom: 2rem; }
+    .lang-switch { margin-left: auto; border: none; padding-left: 0; }
+    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.3em; }
+    .hero-subtitle { font-size: 1.15rem; }
     .hero-logo-img { max-height: 250px; }
-    
     .about-grid, .shows-layout, .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-    .gallery-item:first-child { grid-row: auto; grid-column: 1 / -1; }
-    .media-grid { grid-template-columns: 1fr; }
-    .container { padding: 0 1.5rem; }
-    #about, #gallery, #shows, #media { padding: 5rem 0; }
-    
     .booking-card { grid-template-columns: 1fr; padding: 2.5rem; }
     .booking-btns { flex-direction: row; min-width: auto; }
   }
@@ -884,26 +711,23 @@
     <li><a href="#media">Música</a></li>
     <li><a href="#booking">Contacto</a></li>
   </ul>
+  <div class="lang-switch">
+    <a href="index.html" class="active">ES</a>
+    <a href="de.html">DE</a>
+    <a href="en.html">EN</a>
+  </div>
 </nav>
 
 <section id="hero">
   <div class="orb orb-purple"></div>
   <div class="orb orb-gold"></div>
-  
   <div class="hero-eyebrow">Iquique · Chile &nbsp;—&nbsp; Berlin · Deutschland</div>
-  
   <img src="logo-urupampa.png" alt="Uru Pampa Logo" class="hero-logo-img">
-  
   <p class="hero-subtitle">
     <strong>Sonidos del Altiplano</strong> en el corazón de Europa.<br>
     Música latinoamericana y andina desde las raíces del norte de Chile hasta los escenarios de Berlín.
   </p>
-  
-  <a href="#booking" class="hero-cta">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 010 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Booking & Contacto
-  </a>
-  
+  <a href="#booking" class="hero-cta">Booking & Contacto</a>
   <div class="scroll-hint">
     <div class="scroll-line"></div>
     <span>Scroll</span>
@@ -916,28 +740,17 @@
       <div class="about-text reveal">
         <div class="section-label">La Banda</div>
         <h2 class="section-title">Entre el desierto<br>de Atacama y el <em>Spree</em></h2>
-        <div class="alt-divider"><div class="diamond"></div></div>
-        <p>
-          <strong>Uru Pampa</strong> nació en las calles de Iquique, Chile — tierra de sal, sol eterno y música que sabe a raíces. Desde el norte del desierto de Atacama, viajaron hasta Berlín portando el charango, la quena y la guitarra como pasaporte.
-        </p>
-        <p>
-          En la capital alemana encontraron su segundo hogar: una escena vibrante que los invita a compartir los <strong>ritmos andinos, la cumbia, la cueca</strong> y la fusión latinoamericana con el mundo. Su música une dos continentes con cada acorde.
-        </p>
-        <p>
-          Cada presentación es un viaje sensorial — desde los Andes hasta el Mediterráneo berlinés, donde la tradición y la modernidad se abrazan en perfecta armonía.
-        </p>
+        <p><strong>Uru Pampa</strong> nació en las calles de Iquique, Chile. Desde el norte del desierto de Atacama, viajaron hasta Berlín portando el charango, la quena y la guitarra como pasaporte.</p>
+        <p>En la capital alemana encontraron su segundo hogar compartiendo los <strong>ritmos andinos, la cumbia y la cueca</strong> con el mundo.</p>
         <div class="about-tags">
           <span class="tag">Música Andina</span>
           <span class="tag">Charango</span>
           <span class="tag">Quena</span>
-          <span class="tag">Guitarra</span>
           <span class="tag">Cumbia</span>
-          <span class="tag">Fusión</span>
           <span class="tag">Live</span>
         </div>
       </div>
-      
-      <div class="about-visual reveal reveal-delay-2">
+      <div class="about-visual reveal">
         <div class="about-photo-frame">
           <img src="IMG-20250312-WA0058.jpg" alt="Foto de la Banda" class="about-img">
         </div>
@@ -952,41 +765,29 @@
       <div class="section-label">En Escena</div>
       <h2 class="section-title">La energía<br>de vivir en <em>vivo</em></h2>
     </div>
-    
-    <div class="gallery-grid reveal reveal-delay-1">
-      <div class="gallery-item">
+    <div class="gallery-grid reveal">
+      <div class="gallery-item" style="grid-row: 1 / 3;">
         <div class="gallery-item-inner" style="background: url('FB_IMG_1776243856750.jpg') center/cover no-repeat;">
           <div class="gallery-overlay"></div>
           <span class="gallery-label">Show en vivo — Berlin</span>
         </div>
       </div>
-      
       <div class="gallery-item">
         <div class="gallery-item-inner" style="background: url('IMG-20240730-WA0037.jpg') center/cover no-repeat;">
           <div class="gallery-overlay"></div>
           <span class="gallery-label">En Concierto</span>
         </div>
       </div>
-      
       <div class="gallery-item">
         <div class="gallery-item-inner" style="background: url('IMG-20240730-WA0038.jpg') center/cover no-repeat;">
           <div class="gallery-overlay"></div>
           <span class="gallery-label">Sonido Acústico</span>
         </div>
       </div>
-      
       <div class="gallery-item">
         <div class="gallery-item-inner" style="background: url('IMG-20240730-WA0044.jpg') center/cover no-repeat;">
           <div class="gallery-overlay"></div>
           <span class="gallery-label">Ritmo & Percusión</span>
-        </div>
-      </div>
-      
-      <div class="gallery-item">
-        <div class="gallery-item-inner gi-5">
-          <div class="instr-icon">🌟</div>
-          <div class="gallery-overlay"></div>
-          <span class="gallery-label">Arata Andino 2024</span>
         </div>
       </div>
     </div>
@@ -998,57 +799,24 @@
     <div class="shows-layout">
       <div>
         <div class="section-label reveal">Tour Dates</div>
-        <h2 class="section-title reveal reveal-delay-1">Próximos <em>Shows</em></h2>
-        
-        <div style="margin-top: 2.5rem;">
-          <div class="show-item reveal reveal-delay-1">
-            <div class="show-date">
-              <span class="show-date-num">14</span>
-              <span class="show-date-month">Mar</span>
-            </div>
-            <div class="show-info">
-              <h4>Café Madame</h4>
-              <p>Mehringpl. 10, 10969 Berlin &nbsp;·&nbsp; 18:00 Hrs</p>
-            </div>
-            <span class="show-ticket">Entrada Libre</span>
+        <h2 class="section-title reveal">Próximos <em>Shows</em></h2>
+        <div class="show-item reveal">
+          <div class="show-date">
+            <span class="show-date-num">14</span>
+            <span class="show-date-month">Mar</span>
           </div>
-          
-          <div class="show-item reveal reveal-delay-2">
-            <div class="show-date">
-              <span class="show-date-num">16</span>
-              <span class="show-date-month">Mar</span>
-            </div>
-            <div class="show-info">
-              <h4>Arata Andino 2024</h4>
-              <p>Avda Gabriela Mistral con Ruta A-16 &nbsp;·&nbsp; 18:00 Hrs</p>
-            </div>
-            <span class="show-ticket">Entrada Libre</span>
+          <div class="show-info">
+            <h4>Café Madame</h4>
+            <p>Mehringpl. 10, 10969 Berlin · 18:00 Hrs</p>
           </div>
-          
-          <div class="show-item reveal reveal-delay-3">
-            <div class="show-date">
-              <span class="show-date-num">TBD</span>
-              <span class="show-date-month">2025</span>
-            </div>
-            <div class="show-info">
-              <h4>Próximo Show Berlin</h4>
-              <p>Venue por confirmar &nbsp;·&nbsp; Consultar fecha</p>
-            </div>
-            <span class="show-ticket">Info Pronto</span>
-          </div>
+          <span class="show-ticket">Entrada Libre</span>
         </div>
       </div>
-      
-      <div class="shows-aside reveal reveal-delay-2">
+      <div class="shows-aside reveal">
         <div class="next-show-card">
-          <div class="next-show-date">
-            VIERNES<span>14 de Marzo</span>
-          </div>
-          <div class="next-show-venue">Café Madame</div>
-          <div class="next-show-details">
-            Mehringplatz 10, 10969 Berlin<br>
-            <strong>Entrada Liberada</strong> · 18:00 Horas<br><br>
-            Música Latinoamericana en vivo —<br>empanadas, piscolas y mucho más.
+          <div class="show-info">
+            <h4 style="color:white; margin-bottom:1rem; font-family:'Playfair Display'; font-size:1.5rem">Café Madame</h4>
+            <p style="color:var(--grey); margin-bottom:2rem">Viernes 14 de Marzo · 18:00 Horas<br>Música Latinoamericana en vivo.</p>
           </div>
           <a href="#booking" class="btn-primary">Reservar / Más Info</a>
         </div>
@@ -1063,32 +831,26 @@
       <div class="section-label">Redes & Música</div>
       <h2 class="section-title">Escúchanos y<br><em>síguenos</em></h2>
     </div>
-    
     <div class="media-grid">
-      <a href="https://www.facebook.com/urupampa.serenata/" target="_blank" class="media-card reveal reveal-delay-1">
+      <a href="https://www.facebook.com/urupampa.serenata/" target="_blank" class="media-card reveal">
         <div class="media-icon facebook">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </div>
         <h4>Facebook</h4>
-        <p>Síguenos y entérate de nuestras presentaciones y novedades</p>
         <span class="media-link">→ Abrir Facebook</span>
       </a>
-      
-      <a href="https://www.youtube.com/watch?v=euPms6qqEvU" target="_blank" class="media-card reveal reveal-delay-2">
+      <a href="https://www.youtube.com/watch?v=euPms6qqEvU" target="_blank" class="media-card reveal">
         <div class="media-icon youtube">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </div>
         <h4>YouTube</h4>
-        <p>Videos en vivo y presentaciones completas</p>
         <span class="media-link">→ Abrir YouTube</span>
       </a>
-      
-      <a href="https://www.instagram.com/urupampa_berlin/" target="_blank" class="media-card reveal reveal-delay-3">
+      <a href="https://www.instagram.com/urupampa_berlin/" target="_blank" class="media-card reveal">
         <div class="media-icon instagram">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </div>
         <h4>Instagram</h4>
-        <p>Fotos, stories y actualizaciones de la banda</p>
         <span class="media-link">→ Seguir @urupampa_berlin</span>
       </a>
     </div>
@@ -1101,17 +863,12 @@
       <div>
         <div class="section-label">Contacto</div>
         <h2>¿Quieres que <em style="color:var(--gold);font-style:italic">Uru Pampa</em><br>toque en tu evento?</h2>
-        <p>Disponibles para conciertos, festivales, eventos privados y colaboraciones en Berlín y Europa. Escríbenos y hagamos música juntos.</p>
-        <div style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--grey);">
-          <div style="margin-bottom: 0.5rem;">📍 Berlin, Deutschland</div>
-          <div style="margin-bottom: 0.5rem;">✉️ urupampa_berlin@gmail.com</div>
-          <div>🌐 Iquique × Berlin · Música Latinoamericana</div>
-        </div>
+        <p style="margin-top:1.5rem">📍 Berlin, Deutschland · ✉️ urupampa_berlin@gmail.com</p>
       </div>
       <div class="booking-btns">
         <a href="mailto:urupampa_berlin@gmail.com" class="btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          Enviar Mensaje
+          Enviar Email
         </a>
         <a href="https://wa.me/491607649232" target="_blank" class="btn-outline">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.396 0 .013 5.37.01 12.01c0 2.12.552 4.19 1.6 6.01L.001 24l6.13-1.605a11.96 11.96 0 005.897 1.55h.005c6.634 0 12.016-5.373 12.019-12.017C24.048 5.414 18.665.002 12.031 0zm0 21.944h-.003a9.927 9.927 0 01-5.056-1.378l-.362-.214-3.763.985.998-3.666-.235-.374a9.92 9.92 0 01-1.516-5.289c.003-5.498 4.475-9.97 9.974-9.97 2.663.001 5.166 1.04 7.046 2.923 1.88 1.882 2.916 4.385 2.914 7.049-.003 5.498-4.475 9.97-9.973 9.97l-.024-.036zm5.474-7.48c-.3-.15-1.774-.876-2.05-.976-.275-.101-.475-.15-.675.15-.2.3-.775.976-.95 1.176-.175.2-.35.225-.65.075-1.226-.605-2.203-1.163-3.056-2.613-.2-.34.202-.32.637-.935.15-.2.2-.35.1-.65-.05-.15-.675-1.626-.925-2.226-.241-.578-.485-.5-.675-.51h-.575c-.2 0-.525.075-.8.375s-1.05 1.026-1.05 2.5 1.075 2.9 1.225 3.1c.15.2 2.112 3.226 5.112 4.526.714.308 1.27.493 1.705.631.716.228 1.368.196 1.883.119.58-.087 1.774-.726 2.024-1.426.25-.7.25-1.3.175-1.426-.075-.125-.275-.2-.575-.35z"/></svg>
@@ -1126,63 +883,41 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <h3>Uru<span style="color:var(--gold)">Pampa</span></h3>
-        <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--purple-light);margin-top:0.3rem">Berlin · Iquique</div>
-        <p>Música andina y latinoamericana desde las raíces del desierto de Atacama hasta los escenarios de Berlín. Portadores de una tradición viva.</p>
+        <h3>Uru<span>Pampa</span></h3>
+        <p>Música andina desde las raíces del desierto hasta Berlín.</p>
       </div>
-      
       <div class="footer-col">
         <h5>Navegación</h5>
         <a href="#about">La Banda</a>
-        <a href="#gallery">Galería</a>
         <a href="#shows">Shows</a>
-        <a href="#media">Música</a>
         <a href="#booking">Contacto</a>
       </div>
-      
       <div class="footer-col">
-        <h5>Redes Sociales</h5>
+        <h5>Redes</h5>
         <a href="https://www.instagram.com/urupampa_berlin/" target="_blank">Instagram</a>
         <a href="https://www.facebook.com/urupampa.serenata/" target="_blank">Facebook</a>
-        <a href="https://www.youtube.com/watch?v=euPms6qqEvU" target="_blank">YouTube</a>
-        <p style="margin-top:1rem;font-size:0.75rem;">Berlin, Deutschland</p>
       </div>
     </div>
     
     <div class="footer-bottom">
       <span>© 2025 Uru Pampa Berlin — Todos los derechos reservados</span>
-      
       <div style="display: flex; gap: 1.5rem;">
-        <a href="impressum.html" style="color: var(--grey); text-decoration: none; transition: color 0.3s; font-size: 0.75rem;">Impressum</a>
-        <a href="datenschutz.html" style="color: var(--grey); text-decoration: none; transition: color 0.3s; font-size: 0.75rem;">Datenschutz</a>
+        <a href="impressum.html" style="color: var(--grey); text-decoration: none; font-size: 0.75rem;">Impressum</a>
+        <a href="datenschutz.html" style="color: var(--grey); text-decoration: none; font-size: 0.75rem;">Datenschutz</a>
       </div>
-      
-      <span>Hecho con ♥ desde <span>Berlín × Iquique</span></span>
+      <span>Berlín × Iquique</span>
     </div>
   </div>
 </footer>
 
 <script>
-  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.1 });
   
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  
-  // Smooth nav appearance on scroll
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      nav.style.background = 'rgba(8,8,8,0.95)';
-    } else {
-      nav.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%)';
-    }
-  });
 </script>
 </body>
 </html>
