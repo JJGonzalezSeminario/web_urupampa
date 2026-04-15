@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uru Pampa Berlin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --charcoal: #111114;
+    --purple: #7B3FE4;
+    --purple-light: #9D6FF0;
+    --purple-glow: rgba(123,63,228,0.35);
+    --gold: #D4872A;
+    --gold-light: #F0AA4A;
+    --gold-glow: rgba(212,135,42,0.3);
+    --cream: #F5ECD7;
+    --grey: #8A8A9A;
+    --white: #FFFFFF;
+  }
+  
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ANDEAN PATTERN BACKGROUND */
+  .andean-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(123,63,228,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(212,135,42,0.08) 0%, transparent 60%);
+  }
+  
+  .andean-pattern {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background-image: 
+      repeating-linear-gradient(45deg, var(--purple) 0, var(--purple) 1px, transparent 0, transparent 50%),
+      repeating-linear-gradient(-45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+    background-size: 30px 30px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%);
+    backdrop-filter: blur(4px);
+  }
+  
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+  
+  .nav-logo span { color: var(--gold); }
+  
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  
+  .nav-links a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+  }
+  
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  
+  .hero-logo-img {
+    width: 90vw;
+    max-width: 800px;
+    height: auto;
+    max-height: 45vh;
+    object-fit: contain;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.5s forwards;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .hero-subtitle {
+    max-width: 800px;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(245,236,215,0.9);
+    margin: 1rem auto 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+  
+  .hero-subtitle strong { color: var(--gold-light); font-style: normal; font-weight: 400; }
+  
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  
+  .hero-cta:hover { color: var(--black); }
+  .hero-cta:hover::before { transform: scaleX(1); }
+  
+  /* Glowing orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .orb-purple {
+    width: 400px; height: 400px;
+    background: var(--purple-glow);
+    top: 20%; left: -100px;
+    animation-delay: 0s;
+  }
+  
+  .orb-gold {
+    width: 300px; height: 300px;
+    background: var(--gold-glow);
+    bottom: 10%; right: -80px;
+    animation-delay: -4s;
+  }
+  
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.8s forwards;
+  }
+  
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--grey), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  /* SECTIONS COMMON */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+  
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--purple), transparent);
+    max-width: 80px;
+  }
+  
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  /* ABOUT */
+  #about {
+    padding: 8rem 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  
+  .about-text p {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(245,236,215,0.7);
+    margin-bottom: 1.2rem;
+  }
+  
+  .about-text p strong { color: var(--cream); font-weight: 400; }
+  
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  
+  .tag {
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(123,63,228,0.4);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    background: rgba(123,63,228,0.07);
+  }
+  
+  .about-visual {
+    position: relative;
+  }
+  
+  .about-photo-frame {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+  
+  .about-photo-frame::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid var(--purple);
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .about-photo-frame::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: -15px;
+    bottom: -15px;
+    border: 1px solid var(--gold);
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .about-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%) contrast(1.1);
+    transition: filter 0.5s ease;
+  }
+  
+  .about-img:hover { filter: grayscale(0%) contrast(1.05); }
+
+  /* GALLERY */
+  #gallery {
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, transparent, rgba(123,63,228,0.04), transparent);
+  }
+  
+  .gallery-header { margin-bottom: 3rem; }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 220px 220px;
+    gap: 12px;
+  }
+  
+  .gallery-item {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .gallery-item:first-child {
+    grid-row: 1 / 3;
+  }
+  
+  .gallery-item-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a0a2e, #2d1b4e);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .gallery-item:hover .gallery-item-inner { transform: scale(1.04); }
+  
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    z-index: 1;
+  }
+  
+  .gallery-label {
+    position: relative;
+    z-index: 2;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .gallery-item:hover .gallery-label { opacity: 1; transform: translateY(0); }
+  
+  /* Instrument icons as placeholders */
+  .instr-icon {
+    font-size: 3rem;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.15;
+  }
+  
+  /* Color variations */
+  .gi-5 { background: linear-gradient(135deg, #1a1a0a, #2a2a0a) !important; }
+
+  /* SHOWS */
+  #shows {
+    padding: 8rem 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .shows-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  
+  .show-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .show-item::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem; right: -1.5rem;
+    top: 0; bottom: 0;
+    background: rgba(123,63,228,0.05);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .show-item:hover::before { opacity: 1; }
+  .show-item:hover .show-date-num { color: var(--gold-light); }
+  
+  .show-date {
+    text-align: center;
+    line-height: 1;
+  }
+  
+  .show-date-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--purple-light);
+    display: block;
+    transition: color 0.3s;
+  }
+  
+  .show-date-month {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  
+  .show-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+  
+  .show-info p {
+    font-size: 0.8rem;
+    color: var(--grey);
+    letter-spacing: 0.05em;
+  }
+  
+  .show-ticket {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(212,135,42,0.4);
+    padding: 0.35rem 0.8rem;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  
+  .show-ticket:hover, .show-item:hover .show-ticket {
+    background: var(--gold);
+    color: var(--black);
+  }
+  
+  .shows-aside {
+    position: sticky;
+    top: 6rem;
+  }
+  
+  .next-show-card {
+    background: linear-gradient(135deg, rgba(123,63,228,0.15) 0%, rgba(212,135,42,0.08) 100%);
+    border: 1px solid rgba(123,63,228,0.3);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .next-show-card::before {
+    content: 'PRÓXIMO';
+    position: absolute;
+    top: 1.5rem;
+    right: -2rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--purple-light);
+    transform: rotate(90deg);
+    transform-origin: right center;
+  }
+  
+  .next-show-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    line-height: 0.85;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  
+  .next-show-date span {
+    font-size: 1.5rem;
+    color: var(--gold);
+    display: block;
+  }
+  
+  .next-show-venue {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  
+  .next-show-details {
+    font-size: 0.85rem;
+    color: var(--grey);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .next-show-details strong { color: var(--gold-light); font-weight: 400; }
+  
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--purple);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover { background: var(--purple-light); transform: translateY(-2px); }
+
+  /* MEDIA */
+  #media {
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, transparent, rgba(212,135,42,0.03), transparent);
+  }
+  
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  
+  .media-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .media-card:hover {
+    border-color: var(--gold);
+    background: rgba(212,135,42,0.05);
+    transform: translateY(-4px);
+  }
+  
+  .media-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  
+  /* NUEVO COLOR PARA FACEBOOK EN LUGAR DE SPOTIFY */
+  .media-icon.facebook { background: rgba(24,119,242,0.12); color: #1877F2; }
+  .media-icon.youtube { background: rgba(255,0,0,0.12); color: #FF0000; }
+  .media-icon.instagram { background: rgba(225,48,108,0.12); color: #E1306C; }
+  
+  .media-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--white);
+  }
+  
+  .media-card p {
+    font-size: 0.82rem;
+    color: var(--grey);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  
+  .media-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* BOOKING SECTION */
+  #booking {
+    padding: 7rem 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .booking-card {
+    background: linear-gradient(135deg, rgba(123,63,228,0.1), rgba(212,135,42,0.07));
+    border: 1px solid rgba(123,63,228,0.25);
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .booking-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  
+  .booking-card p {
+    font-size: 1rem;
+    color: var(--grey);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  
+  .booking-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 180px;
+  }
+  
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--grey);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+  }
+  
+  .btn-outline:hover {
+    border-color: var(--cream);
+    color: var(--cream);
+  }
+  
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 0 3rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  
+  .footer-brand h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-brand p {
+    font-size: 0.85rem;
+    color: var(--grey);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+  
+  .footer-col h5 {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-col a, .footer-col p {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--grey);
+    font-weight: 300;
+    margin-bottom: 0.7rem;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-col a:hover { color: var(--gold-light); }
+  
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.75rem;
+    color: rgba(138,138,154,0.5);
+    letter-spacing: 0.1em;
+  }
+  
+  .footer-bottom span { color: var(--gold); opacity: 0.6; }
+
+  /* DIVIDER */
+  .alt-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    opacity: 0.3;
+  }
+  
+  .alt-divider::before, .alt-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+  }
+  
+  .alt-divider .diamond {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+  }
+  
+  @keyframes scrollLine {
+    0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.25s; }
+  .reveal-delay-3 { transition-delay: 0.4s; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    
+    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.3em; margin-bottom: 1.5rem; }
+    .hero-subtitle { font-size: 1.15rem; margin-bottom: 2rem; }
+    .hero-logo-img { max-height: 250px; }
+    
+    .about-grid, .shows-layout, .footer-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: auto; grid-column: 1 / -1; }
+    .media-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 1.5rem; }
+    #about, #gallery, #shows, #media { padding: 5rem 0; }
+    
+    .booking-card { grid-template-columns: 1fr; padding: 2.5rem; }
+    .booking-btns { flex-direction: row; min-width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="andean-bg"></div>
+<div class="andean-pattern"></div>
+
+<nav>
+  <div class="nav-logo">Uru<span>Pampa</span> · Berlin</div>
+  <ul class="nav-links">
+    <li><a href="#about">La Banda</a></li>
+    <li><a href="#gallery">Galería</a></li>
+    <li><a href="#shows">Shows</a></li>
+    <li><a href="#media">Música</a></li>
+    <li><a href="#booking">Contacto</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="orb orb-purple"></div>
+  <div class="orb orb-gold"></div>
+  
+  <div class="hero-eyebrow">Iquique · Chile &nbsp;—&nbsp; Berlin · Deutschland</div>
+  
+  <img src="logo-urupampa.png" alt="Uru Pampa Logo" class="hero-logo-img">
+  
+  <p class="hero-subtitle">
+    <strong>Sonidos del Altiplano</strong> en el corazón de Europa.<br>
+    Música latinoamericana y andina desde las raíces del norte de Chile hasta los escenarios de Berlín.
+  </p>
+  
+  <a href="#booking" class="hero-cta">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 010 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Booking & Contacto
+  </a>
+  
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">La Banda</div>
+        <h2 class="section-title">Entre el desierto<br>de Atacama y el <em>Spree</em></h2>
+        <div class="alt-divider"><div class="diamond"></div></div>
+        <p>
+          <strong>Uru Pampa</strong> nació en las calles de Iquique, Chile — tierra de sal, sol eterno y música que sabe a raíces. Desde el norte del desierto de Atacama, viajaron hasta Berlín portando el charango, la quena y la guitarra como pasaporte.
+        </p>
+        <p>
+          En la capital alemana encontraron su segundo hogar: una escena vibrante que los invita a compartir los <strong>ritmos andinos, la cumbia, la cueca</strong> y la fusión latinoamericana con el mundo. Su música une dos continentes con cada acorde.
+        </p>
+        <p>
+          Cada presentación es un viaje sensorial — desde los Andes hasta el Mediterráneo berlinés, donde la tradición y la modernidad se abrazan en perfecta armonía.
+        </p>
+        <div class="about-tags">
+          <span class="tag">Música Andina</span>
+          <span class="tag">Charango</span>
+          <span class="tag">Quena</span>
+          <span class="tag">Guitarra</span>
+          <span class="tag">Cumbia</span>
+          <span class="tag">Fusión</span>
+          <span class="tag">Live</span>
+        </div>
+      </div>
+      
+      <div class="about-visual reveal reveal-delay-2">
+        <div class="about-photo-frame">
+          <img src="IMG-20250312-WA0058.jpg" alt="Foto de la Banda" class="about-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <div class="section-label">En Escena</div>
+      <h2 class="section-title">La energía<br>de vivir en <em>vivo</em></h2>
+    </div>
+    
+    <div class="gallery-grid reveal reveal-delay-1">
+      <div class="gallery-item">
+        <div class="gallery-item-inner" style="background: url('FB_IMG_1776243856750.jpg') center/cover no-repeat;">
+          <div class="gallery-overlay"></div>
+          <span class="gallery-label">Show en vivo — Berlin</span>
+        </div>
+      </div>
+      
+      <div class="gallery-item">
+        <div class="gallery-item-inner" style="background: url('IMG-20240730-WA0037.jpg') center/cover no-repeat;">
+          <div class="gallery-overlay"></div>
+          <span class="gallery-label">En Concierto</span>
+        </div>
+      </div>
+      
+      <div class="gallery-item">
+        <div class="gallery-item-inner" style="background: url('IMG-20240730-WA0038.jpg') center/cover no-repeat;">
+          <div class="gallery-overlay"></div>
+          <span class="gallery-label">Sonido Acústico</span>
+        </div>
+      </div>
+      
+      <div class="gallery-item">
+        <div class="gallery-item-inner" style="background: url('IMG-20240730-WA0044.jpg') center/cover no-repeat;">
+          <div class="gallery-overlay"></div>
+          <span class="gallery-label">Ritmo & Percusión</span>
+        </div>
+      </div>
+      
+      <div class="gallery-item">
+        <div class="gallery-item-inner gi-5">
+          <div class="instr-icon">🌟</div>
+          <div class="gallery-overlay"></div>
+          <span class="gallery-label">Arata Andino 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shows">
+  <div class="container">
+    <div class="shows-layout">
+      <div>
+        <div class="section-label reveal">Tour Dates</div>
+        <h2 class="section-title reveal reveal-delay-1">Próximos <em>Shows</em></h2>
+        
+        <div style="margin-top: 2.5rem;">
+          <div class="show-item reveal reveal-delay-1">
+            <div class="show-date">
+              <span class="show-date-num">14</span>
+              <span class="show-date-month">Mar</span>
+            </div>
+            <div class="show-info">
+              <h4>Café Madame</h4>
+              <p>Mehringpl. 10, 10969 Berlin &nbsp;·&nbsp; 18:00 Hrs</p>
+            </div>
+            <span class="show-ticket">Entrada Libre</span>
+          </div>
+          
+          <div class="show-item reveal reveal-delay-2">
+            <div class="show-date">
+              <span class="show-date-num">16</span>
+              <span class="show-date-month">Mar</span>
+            </div>
+            <div class="show-info">
+              <h4>Arata Andino 2024</h4>
+              <p>Avda Gabriela Mistral con Ruta A-16 &nbsp;·&nbsp; 18:00 Hrs</p>
+            </div>
+            <span class="show-ticket">Entrada Libre</span>
+          </div>
+          
+          <div class="show-item reveal reveal-delay-3">
+            <div class="show-date">
+              <span class="show-date-num">TBD</span>
+              <span class="show-date-month">2025</span>
+            </div>
+            <div class="show-info">
+              <h4>Próximo Show Berlin</h4>
+              <p>Venue por confirmar &nbsp;·&nbsp; Consultar fecha</p>
+            </div>
+            <span class="show-ticket">Info Pronto</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="shows-aside reveal reveal-delay-2">
+        <div class="next-show-card">
+          <div class="next-show-date">
+            VIERNES<span>14 de Marzo</span>
+          </div>
+          <div class="next-show-venue">Café Madame</div>
+          <div class="next-show-details">
+            Mehringplatz 10, 10969 Berlin<br>
+            <strong>Entrada Liberada</strong> · 18:00 Horas<br><br>
+            Música Latinoamericana en vivo —<br>empanadas, piscolas y mucho más.
+          </div>
+          <a href="#booking" class="btn-primary">Reservar / Más Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="media">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Redes & Música</div>
+      <h2 class="section-title">Escúchanos y<br><em>síguenos</em></h2>
+    </div>
+    
+    <div class="media-grid">
+      <a href="https://www.facebook.com/urupampa.serenata/" target="_blank" class="media-card reveal reveal-delay-1">
+        <div class="media-icon facebook">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <h4>Facebook</h4>
+        <p>Síguenos y entérate de nuestras presentaciones y novedades</p>
+        <span class="media-link">→ Abrir Facebook</span>
+      </a>
+      
+      <a href="https://www.youtube.com/watch?v=euPms6qqEvU" target="_blank" class="media-card reveal reveal-delay-2">
+        <div class="media-icon youtube">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </div>
+        <h4>YouTube</h4>
+        <p>Videos en vivo y presentaciones completas</p>
+        <span class="media-link">→ Abrir YouTube</span>
+      </a>
+      
+      <a href="https://www.instagram.com/urupampa_berlin/" target="_blank" class="media-card reveal reveal-delay-3">
+        <div class="media-icon instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        <h4>Instagram</h4>
+        <p>Fotos, stories y actualizaciones de la banda</p>
+        <span class="media-link">→ Seguir @urupampa_berlin</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="container">
+    <div class="booking-card reveal">
+      <div>
+        <div class="section-label">Contacto</div>
+        <h2>¿Quieres que <em style="color:var(--gold);font-style:italic">Uru Pampa</em><br>toque en tu evento?</h2>
+        <p>Disponibles para conciertos, festivales, eventos privados y colaboraciones en Berlín y Europa. Escríbenos y hagamos música juntos.</p>
+        <div style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--grey);">
+          <div style="margin-bottom: 0.5rem;">📍 Berlin, Deutschland</div>
+          <div style="margin-bottom: 0.5rem;">✉️ urupampa_berlin@gmail.com</div>
+          <div>🌐 Iquique × Berlin · Música Latinoamericana</div>
+        </div>
+      </div>
+      <div class="booking-btns">
+        <a href="mailto:urupampa_berlin@gmail.com" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Enviar Mensaje
+        </a>
+        <a href="https://wa.me/491607649232" target="_blank" class="btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 0C5.396 0 .013 5.37.01 12.01c0 2.12.552 4.19 1.6 6.01L.001 24l6.13-1.605a11.96 11.96 0 005.897 1.55h.005c6.634 0 12.016-5.373 12.019-12.017C24.048 5.414 18.665.002 12.031 0zm0 21.944h-.003a9.927 9.927 0 01-5.056-1.378l-.362-.214-3.763.985.998-3.666-.235-.374a9.92 9.92 0 01-1.516-5.289c.003-5.498 4.475-9.97 9.974-9.97 2.663.001 5.166 1.04 7.046 2.923 1.88 1.882 2.916 4.385 2.914 7.049-.003 5.498-4.475 9.97-9.973 9.97l-.024-.036zm5.474-7.48c-.3-.15-1.774-.876-2.05-.976-.275-.101-.475-.15-.675.15-.2.3-.775.976-.95 1.176-.175.2-.35.225-.65.075-1.226-.605-2.203-1.163-3.056-2.613-.2-.34.202-.32.637-.935.15-.2.2-.35.1-.65-.05-.15-.675-1.626-.925-2.226-.241-.578-.485-.5-.675-.51h-.575c-.2 0-.525.075-.8.375s-1.05 1.026-1.05 2.5 1.075 2.9 1.225 3.1c.15.2 2.112 3.226 5.112 4.526.714.308 1.27.493 1.705.631.716.228 1.368.196 1.883.119.58-.087 1.774-.726 2.024-1.426.25-.7.25-1.3.175-1.426-.075-.125-.275-.2-.575-.35z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Uru<span style="color:var(--gold)">Pampa</span></h3>
+        <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--purple-light);margin-top:0.3rem">Berlin · Iquique</div>
+        <p>Música andina y latinoamericana desde las raíces del desierto de Atacama hasta los escenarios de Berlín. Portadores de una tradición viva.</p>
+      </div>
+      
+      <div class="footer-col">
+        <h5>Navegación</h5>
+        <a href="#about">La Banda</a>
+        <a href="#gallery">Galería</a>
+        <a href="#shows">Shows</a>
+        <a href="#media">Música</a>
+        <a href="#booking">Contacto</a>
+      </div>
+      
+      <div class="footer-col">
+        <h5>Redes Sociales</h5>
+        <a href="https://www.instagram.com/urupampa_berlin/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/urupampa.serenata/" target="_blank">Facebook</a>
+        <a href="https://www.youtube.com/watch?v=euPms6qqEvU" target="_blank">YouTube</a>
+        <p style="margin-top:1rem;font-size:0.75rem;">Berlin, Deutschland</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span>© 2025 Uru Pampa Berlin — Todos los derechos reservados</span>
+      <span>Hecho con ♥ desde <span>Berlín × Iquique</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  
+  // Smooth nav appearance on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(8,8,8,0.95)';
+    } else {
+      nav.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%)';
+    }
+  });
+</script>
+</body>
+</html>
