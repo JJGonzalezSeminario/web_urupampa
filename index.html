@@ -99,6 +99,28 @@
   
   .nav-links a:hover { color: var(--gold-light); }
 
+  /* LANGUAGE SWITCHER */
+  .lang-switch {
+    display: flex;
+    gap: 1rem;
+    margin-left: 2rem;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(255,255,255,0.15);
+  }
+  
+  .lang-switch a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--grey);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  .lang-switch a:hover, .lang-switch a.active {
+    color: var(--gold);
+  }
+
   /* HERO */
   #hero {
     position: relative;
@@ -518,11 +540,6 @@
     white-space: nowrap;
   }
   
-  .show-ticket:hover, .show-item:hover .show-ticket {
-    background: var(--gold);
-    color: var(--black);
-  }
-  
   .shows-aside {
     position: sticky;
     top: 6rem;
@@ -645,7 +662,6 @@
     font-size: 1.5rem;
   }
   
-  /* NUEVO COLOR PARA FACEBOOK EN LUGAR DE SPOTIFY */
   .media-icon.facebook { background: rgba(24,119,242,0.12); color: #1877F2; }
   .media-icon.youtube { background: rgba(255,0,0,0.12); color: #FF0000; }
   .media-icon.instagram { background: rgba(225,48,108,0.12); color: #E1306C; }
@@ -853,7 +869,7 @@
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
-    
+    .lang-switch { margin-left: auto; border: none; padding-left: 0; }
     .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.3em; margin-bottom: 1.5rem; }
     .hero-subtitle { font-size: 1.15rem; margin-bottom: 2rem; }
     .hero-logo-img { max-height: 250px; }
@@ -884,6 +900,11 @@
     <li><a href="#media">Música</a></li>
     <li><a href="#booking">Contacto</a></li>
   </ul>
+  <div class="lang-switch">
+    <a href="index.html" class="active">ES</a>
+    <a href="de.html">DE</a>
+    <a href="en.html">EN</a>
+  </div>
 </nav>
 
 <section id="hero">
@@ -1151,12 +1172,10 @@
     
     <div class="footer-bottom">
       <span>© 2025 Uru Pampa Berlin — Todos los derechos reservados</span>
-      
       <div style="display: flex; gap: 1.5rem;">
         <a href="impressum.html" style="color: var(--grey); text-decoration: none; transition: color 0.3s; font-size: 0.75rem;">Impressum</a>
         <a href="datenschutz.html" style="color: var(--grey); text-decoration: none; transition: color 0.3s; font-size: 0.75rem;">Datenschutz</a>
       </div>
-      
       <span>Hecho con ♥ desde <span>Berlín × Iquique</span></span>
     </div>
   </div>
