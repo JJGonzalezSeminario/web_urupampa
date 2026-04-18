@@ -872,6 +872,7 @@
   .reveal-delay-3 { transition-delay: 0.4s; }
 
   /* Mobile */
+  /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
@@ -889,7 +890,22 @@
     #about, #gallery, #shows, #media { padding: 5rem 0; }
     
     .booking-card { grid-template-columns: 1fr; padding: 2.5rem; }
-    .booking-btns { flex-direction: row; min-width: auto; }
+    .booking-btns { flex-direction: column; width: 100%; }
+    
+    /* Solución Íconos de botones (Evita que se aplasten) */
+    .booking-btns svg { 
+      flex-shrink: 0; 
+      width: 18px; 
+      height: 18px; 
+    }
+    
+    /* Solución Footer amontonado (Los apila en columna) */
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+      padding-bottom: 1rem;
+    }
   }
 </style>
 </head>
