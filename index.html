@@ -871,7 +871,41 @@
   .reveal-delay-2 { transition-delay: 0.25s; }
   .reveal-delay-3 { transition-delay: 0.4s; }
 
-  /* Mobile */
+  /* MUSIC PLAYER BUTTON */
+  .music-floating-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(17, 17, 20, 0.85);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    padding: 0.7rem 1.2rem;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .music-floating-btn:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .music-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
@@ -906,10 +940,33 @@
       gap: 1.5rem;
       padding-bottom: 1rem;
     }
+
+    /* Music Button Mobile */
+    .music-floating-btn {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.8rem;
+      border-radius: 50%;
+    }
+    .music-text {
+      display: none;
+    }
   }
 </style>
 </head>
 <body>
+
+<audio id="bg-audio" loop preload="auto">
+  <source src="Así Fue - Urupampa.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-btn" class="music-floating-btn">
+  <span class="music-icon">
+    <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="pause-icon" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </span>
+  <span class="music-text">Play Music</span>
+</button>
 
 <div class="andean-bg"></div>
 <div class="andean-pattern"></div>
@@ -1226,6 +1283,33 @@
     } else {
       nav.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%)';
     }
+  });
+
+  // Lógica del reproductor de música
+  const bgAudio = document.getElementById('bg-audio');
+  const musicBtn = document.getElementById('music-btn');
+  const playIcon = document.getElementById('play-icon');
+  const pauseIcon = document.getElementById('pause-icon');
+  const musicText = document.querySelector('.music-text');
+  
+  // Volumen por defecto (0.4 = 40%)
+  bgAudio.volume = 0.4; 
+
+  let isPlaying = false;
+
+  musicBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      bgAudio.pause();
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      musicText.textContent = 'Play Music';
+    } else {
+      bgAudio.play();
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      musicText.textContent = 'Playing...';
+    }
+    isPlaying = !isPlaying;
   });
 </script>
 </body>
