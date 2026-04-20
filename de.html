@@ -12,7 +12,7 @@
     --purple: #7B3FE4;
     --purple-light: #9D6FF0;
     --purple-glow: rgba(123,63,228,0.35);
-    --gold: #D4872A;
+    --gold: #D4872A; 
     --gold-light: #F0AA4A;
     --gold-glow: rgba(212,135,42,0.3);
     --cream: #F5ECD7;
@@ -559,7 +559,7 @@
   }
   
   .next-show-card::before {
-    content: 'NÄCHSTER';
+    content: 'NÄCHSTE';
     position: absolute;
     top: 1.5rem;
     right: -2rem;
@@ -871,6 +871,41 @@
   .reveal-delay-2 { transition-delay: 0.25s; }
   .reveal-delay-3 { transition-delay: 0.4s; }
 
+  /* MUSIC PLAYER BUTTON */
+  .music-floating-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(17, 17, 20, 0.85);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    padding: 0.7rem 1.2rem;
+    border-radius: 50px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .music-floating-btn:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .music-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
@@ -889,11 +924,49 @@
     #about, #gallery, #shows, #media { padding: 5rem 0; }
     
     .booking-card { grid-template-columns: 1fr; padding: 2.5rem; }
-    .booking-btns { flex-direction: row; min-width: auto; }
+    .booking-btns { flex-direction: column; width: 100%; }
+    
+    /* Solución Íconos de botones (Evita que se aplasten) */
+    .booking-btns svg { 
+      flex-shrink: 0; 
+      width: 18px; 
+      height: 18px; 
+    }
+    
+    /* Solución Footer amontonado (Los apila en columna) */
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+      padding-bottom: 1rem;
+    }
+
+    /* Music Button Mobile */
+    .music-floating-btn {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      padding: 0.8rem;
+      border-radius: 50%;
+    }
+    .music-text {
+      display: none;
+    }
   }
 </style>
 </head>
 <body>
+
+<audio id="bg-audio" loop preload="auto">
+  <source src="Así Fue - Urupampa.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-btn" class="music-floating-btn">
+  <span class="music-icon">
+    <svg id="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="pause-icon" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </span>
+  <span class="music-text">Musik abspielen</span>
+</button>
 
 <div class="andean-bg"></div>
 <div class="andean-pattern"></div>
@@ -934,7 +1007,7 @@
   
   <div class="scroll-hint">
     <div class="scroll-line"></div>
-    <span>Scrollen</span>
+    <span>Scroll</span>
   </div>
 </section>
 
@@ -943,16 +1016,16 @@
     <div class="about-grid">
       <div class="about-text reveal">
         <div class="section-label">Die Band</div>
-        <h2 class="section-title">Zwischen der Atacama-Wüste<br>und der <em>Spree</em></h2>
+        <h2 class="section-title">Zwischen Atacama-Wüste<br>und der <em>Spree</em></h2>
         <div class="alt-divider"><div class="diamond"></div></div>
         <p>
-          <strong>Uru Pampa</strong> entstand in den Straßen von Iquique, Chile — ein Land aus Salz, ewiger Sonne und Musik, die nach Wurzeln schmeckt. Von der nördlichen Atacama-Wüste reisten sie mit Charango, Quena und Gitarre als Pass nach Berlin.
+          <strong>Uru Pampa</strong> wurde in den Straßen von Iquique, Chile, geboren — ein Land aus Salz, ewiger Sonne und Musik, die nach Wurzeln schmeckt. Aus dem Norden der Atacama-Wüste reisten sie nach Berlin, mit Charango, Quena und Gitarre als Reisepass.
         </p>
         <p>
-          In der deutschen Hauptstadt fanden sie eine zweite Heimat: eine lebendige Szene, die sie einlädt, <strong>andine Rhythmen, Cumbia, Cueca</strong> und lateinamerikanische Fusion mit der Welt zu teilen. Ihre Musik verbindet zwei Kontinente mit jedem Akkord.
+          In der deutschen Hauptstadt fanden sie ihre zweite Heimat: eine lebendige Szene, die sie einlädt, andine Rhythmen, <strong>Cumbia, Cueca</strong> und lateinamerikanische Fusion mit der Welt zu teilen. Ihre Musik verbindet zwei Kontinente mit jedem Akkord.
         </p>
         <p>
-          Jeder Auftritt ist eine sinnliche Reise — von den Anden bis zum Berliner Mittelmeer, wo Tradition und Moderne in perfekter Harmonie verschmelzen.
+          Jeder Auftritt ist eine sinnliche Reise — von den Anden bis ans Berliner Mittelmeer, wo sich Tradition und Moderne in perfekter Harmonie umarmen.
         </p>
         <div class="about-tags">
           <span class="tag">Andenmusik</span>
@@ -967,7 +1040,7 @@
       
       <div class="about-visual reveal reveal-delay-2">
         <div class="about-photo-frame">
-          <img src="IMG-20250312-WA0058.jpg" alt="Bandfoto" class="about-img">
+          <img src="IMG-20250312-WA0058.jpg" alt="Foto de la Banda" class="about-img">
         </div>
       </div>
     </div>
@@ -1038,7 +1111,7 @@
               <h4>Café Madame</h4>
               <p>Mehringpl. 10, 10969 Berlin &nbsp;·&nbsp; 18:00 Uhr</p>
             </div>
-            <span class="show-ticket">Eintritt frei</span>
+            <span class="show-ticket">Freier Eintritt</span>
           </div>
           
           <div class="show-item reveal reveal-delay-2">
@@ -1050,7 +1123,7 @@
               <h4>Arata Andino 2024</h4>
               <p>Avda Gabriela Mistral con Ruta A-16 &nbsp;·&nbsp; 18:00 Uhr</p>
             </div>
-            <span class="show-ticket">Eintritt frei</span>
+            <span class="show-ticket">Freier Eintritt</span>
           </div>
           
           <div class="show-item reveal reveal-delay-3">
@@ -1060,9 +1133,9 @@
             </div>
             <div class="show-info">
               <h4>Nächste Show Berlin</h4>
-              <p>Location noch offen &nbsp;·&nbsp; Datum auf Anfrage</p>
+              <p>Ort wird noch bekannt gegeben &nbsp;·&nbsp; Datum anfragen</p>
             </div>
-            <span class="show-ticket">Info folgt</span>
+            <span class="show-ticket">Info bald</span>
           </div>
         </div>
       </div>
@@ -1078,7 +1151,7 @@
             <strong>Freier Eintritt</strong> · 18:00 Uhr<br><br>
             Lateinamerikanische Live-Musik —<br>Empanadas, Piscolas und vieles mehr.
           </div>
-          <a href="#booking" class="btn-primary">Reservieren / Mehr Infos</a>
+          <a href="#booking" class="btn-primary">Buchen / Mehr Infos</a>
         </div>
       </div>
     </div>
@@ -1088,7 +1161,7 @@
 <section id="media">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">Social Media & Musik</div>
+      <div class="section-label">Socials & Musik</div>
       <h2 class="section-title">Hör rein und<br><em>folge uns</em></h2>
     </div>
     
@@ -1098,7 +1171,7 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </div>
         <h4>Facebook</h4>
-        <p>Folge uns für Neuigkeiten und Auftritte</p>
+        <p>Folge uns und erfahre von unseren Auftritten und Neuigkeiten</p>
         <span class="media-link">→ Facebook öffnen</span>
       </a>
       
@@ -1117,7 +1190,7 @@
         </div>
         <h4>Instagram</h4>
         <p>Fotos, Stories und Band-Updates</p>
-        <span class="media-link">→ @urupampa_berlin folgen</span>
+        <span class="media-link">→ Folgen @urupampa_berlin</span>
       </a>
     </div>
   </div>
@@ -1128,8 +1201,8 @@
     <div class="booking-card reveal">
       <div>
         <div class="section-label">Kontakt</div>
-        <h2>Soll <em style="color:var(--gold);font-style:italic">Uru Pampa</em><br>auf Ihrem Event spielen?</h2>
-        <p>Verfügbar für Konzerte, Festivals, private Events und Kooperationen in Berlin und Europa. Schreiben Sie uns!</p>
+        <h2>Möchtest du, dass <em style="color:var(--gold);font-style:italic">Uru Pampa</em><br>auf deinem Event spielt?</h2>
+        <p>Verfügbar für Konzerte, Festivals, private Events und Kollaborationen in Berlin und Europa. Schreib uns und lass uns zusammen Musik machen.</p>
         <div style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--grey);">
           <div style="margin-bottom: 0.5rem;">📍 Berlin, Deutschland</div>
           <div style="margin-bottom: 0.5rem;">✉️ urupampa_berlin@gmail.com</div>
@@ -1156,7 +1229,7 @@
       <div class="footer-brand">
         <h3>Uru<span style="color:var(--gold)">Pampa</span></h3>
         <div style="font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--purple-light);margin-top:0.3rem">Berlin · Iquique</div>
-        <p>Andine und lateinamerikanische Musik von den Wurzeln der Atacama-Wüste bis zu den Bühnen Berlins.</p>
+        <p>Andine und lateinamerikanische Musik von den Wurzeln der Atacama-Wüste bis zu den Bühnen Berlins. Träger einer lebendigen Tradition.</p>
       </div>
       
       <div class="footer-col">
@@ -1210,6 +1283,33 @@
     } else {
       nav.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%)';
     }
+  });
+
+  // Lógica del reproductor de música
+  const bgAudio = document.getElementById('bg-audio');
+  const musicBtn = document.getElementById('music-btn');
+  const playIcon = document.getElementById('play-icon');
+  const pauseIcon = document.getElementById('pause-icon');
+  const musicText = document.querySelector('.music-text');
+  
+  // Volumen por defecto (0.4 = 40%)
+  bgAudio.volume = 0.4; 
+
+  let isPlaying = false;
+
+  musicBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      bgAudio.pause();
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      musicText.textContent = 'Musik abspielen';
+    } else {
+      bgAudio.play();
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      musicText.textContent = 'Spielt...';
+    }
+    isPlaying = !isPlaying;
   });
 </script>
 </body>
