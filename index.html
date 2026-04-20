@@ -952,6 +952,80 @@
       display: none;
     }
   }
+  /* LIGHTBOX CSS */
+  .lightbox {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(8, 8, 8, 0.95);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lightbox.active {
+    display: flex;
+  }
+  
+  .lightbox-img {
+    max-width: 90%;
+    max-height: 85vh;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    animation: zoomIn 0.3s ease;
+  }
+  
+  @keyframes zoomIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .close-lightbox {
+    position: absolute;
+    top: 20px; right: 30px;
+    color: var(--white);
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .close-lightbox:hover { color: var(--gold); }
+  
+  .prev-lightbox, .next-lightbox {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(17, 17, 20, 0.6);
+    color: var(--white);
+    border: 1px solid var(--gold);
+    font-size: 24px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 50%;
+  }
+  
+  .prev-lightbox { left: 20px; }
+  .next-lightbox { right: 20px; }
+  
+  .prev-lightbox:hover, .next-lightbox:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+  
+  /* Ajustes botones para móvil */
+  @media (max-width: 768px) {
+    .prev-lightbox, .next-lightbox {
+      padding: 10px 15px;
+      font-size: 18px;
+    }
+    .prev-lightbox { left: 10px; }
+    .next-lightbox { right: 10px; }
+  }
 </style>
 </head>
 <body>
@@ -1263,7 +1337,12 @@
     </div>
   </div>
 </footer>
-
+<div id="lightbox" class="lightbox">
+  <span class="close-lightbox">&times;</span>
+  <button class="prev-lightbox">&#10094;</button>
+  <img class="lightbox-img" id="lightbox-img" src="">
+  <button class="next-lightbox">&#10095;</button>
+</div>
 <script>
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
@@ -1311,6 +1390,60 @@
       musicText.textContent = 'Playing...';
     }
     isPlaying = !isPlaying;
+  });
+  // LIGHTBOX LOGIC
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.querySelector('.close-lightbox');
+  const prevBtn = document.querySelector('.prev-lightbox');
+  const nextBtn = document.querySelector('.next-lightbox');
+
+  let currentIndex = 0;
+  let imagesList = [];
+
+  // Extraer las URLs de las imágenes y configurar los clics
+  galleryItems.forEach((item, index) => {
+    const innerDiv = item.querySelector('.gallery-item-inner');
+    // Sacamos la URL limpia del background-image
+    const bgUrl = innerDiv.style.backgroundImage.replace(/(url\(|\)|'|")/gi, '');
+    imagesList.push(bgUrl);
+
+    item.addEventListener('click', () => {
+      currentIndex = index;
+      openLightbox();
+    });
+  });
+
+  function openLightbox() {
+    lightboxImg.src = imagesList[currentIndex];
+    lightbox.classList.add('active');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % imagesList.length;
+    lightboxImg.src = imagesList[currentIndex];
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + imagesList.length) % imagesList.length;
+    lightboxImg.src = imagesList[currentIndex];
+  }
+
+  // Eventos de botones
+  closeBtn.addEventListener('click', closeLightbox);
+  nextBtn.addEventListener('click', showNext);
+  prevBtn.addEventListener('click', showPrev);
+
+  // Cerrar al hacer clic fuera de la foto (en el fondo oscuro)
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
   });
 </script>
 </body>
